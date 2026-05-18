@@ -10,10 +10,11 @@ signal attacks_complete
 @onready var shop_button: BaseButton = %ShopButton
 @onready var cabin: Cabin = %Cabin
 @onready var cabin_area: CabinArea = %CabinArea
-@onready var wallet: Wallet = %CoinOverlay
+@onready var wallet: Wallet = %Wallet
 @onready var daylight_cycle: DaylightCycle = %DaylightCycle
 @onready var attack_highlight_marker: Sprite2D = %AttackHighlightMarker
 @onready var enemy_attack: EnemyAttack = %EnemyAttack
+
 @onready var sfx_attackmiss: AudioStreamPlayer = $sfx_attackmiss
 @onready var sfx_attackhit: AudioStreamPlayer = %sfx_attackhit
 @onready var sfx_dig: AudioStreamPlayer = %sfx_dig
@@ -89,8 +90,8 @@ func _handle_dawn() -> void:
 	
 	inventory.visible = false
 	cabin_area.can_select = false
-	shop_button.visible = false
-	wallet.visible = false
+	shop_button.disabled = true
+	wallet.visible = true
 	_give_resources()
 	_reset_wet_to_dry()
 	_add_debris()
@@ -104,8 +105,8 @@ func _handle_day() -> void:
 	daylight_cycle.transition_to(DaylightCycle.Phase.DAY)
 	inventory.visible = true
 	cabin_area.can_select = true
-	shop_button.visible = false
-	wallet.visible = false
+	shop_button.disabled = false
+	wallet.visible = true
 	print("state is now day")
 
 ## The attacks happen during this state
@@ -113,8 +114,8 @@ func _handle_dusk() -> void:
 	inventory.drop_stack()
 	inventory.visible = false
 	cabin_area.can_select = false
-	shop_button.visible = false
-	wallet.visible = false
+	shop_button.disabled = true
+	wallet.visible = true
 	daylight_cycle.transition_to(DaylightCycle.Phase.DUSK)
 	await daylight_cycle.transition_finished
 	print("state is now dusk")

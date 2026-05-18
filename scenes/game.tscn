@@ -19,7 +19,6 @@
 [ext_resource type="AudioStream" uid="uid://cf18b6wpqrg6m" path="res://Sound/dig.wav" id="13_e1j6l"]
 [ext_resource type="Theme" uid="uid://w2av5bmjgecq" path="res://theme/ceres_theme.tres" id="13_rysoc"]
 [ext_resource type="Script" uid="uid://b42o08pe4p5bg" path="res://scripts/day_night_cycle.gd" id="13_trtic"]
-[ext_resource type="Texture2D" uid="uid://di04akv5g5qqk" path="res://art/phytion-icon.png" id="14_264po"]
 [ext_resource type="AudioStream" uid="uid://mjotran0g53c" path="res://Sound/plant.wav" id="14_pl11u"]
 [ext_resource type="Script" uid="uid://bgwxytwx4v5sd" path="res://scripts/canvas_layer_popup.gd" id="14_ssvqc"]
 [ext_resource type="PackedScene" uid="uid://bkcsjsk2ciff" path="res://addons/maaacks_game_template/base/nodes/music_players/background_music_player.tscn" id="15_264po"]
@@ -27,9 +26,17 @@
 [ext_resource type="Gradient" uid="uid://c5e4hlmqk1pja" path="res://resources/gradient_daylight.tres" id="15_ir15t"]
 [ext_resource type="AudioStream" uid="uid://yrylvybdsv0i" path="res://Sound/CeresTheme.wav" id="16_1kice"]
 [ext_resource type="Script" uid="uid://dvw2r6uuyoyuo" path="res://scripts/cabin_area.gd" id="16_rysoc"]
+[ext_resource type="Texture2D" uid="uid://o4cm7mw5it73" path="res://theme/ui_images/panel-top-bar.png" id="25_sww3w"]
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_ir15t"]
 gradient = ExtResource("15_ir15t")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_suyxu"]
+texture = ExtResource("25_sww3w")
+texture_margin_left = 6.0
+texture_margin_top = 6.0
+texture_margin_right = 6.0
+texture_margin_bottom = 6.0
 
 [node name="Game" type="Node2D" unique_id=1390331388]
 script = ExtResource("1_e2o6t")
@@ -144,12 +151,6 @@ position = Vector2(516, 249)
 [node name="CanvasLayerStatic" type="CanvasLayer" parent="." unique_id=40402678]
 layer = 3
 
-[node name="CoinOverlay" parent="CanvasLayerStatic" unique_id=1098571293 instance=ExtResource("5_vtaks")]
-unique_name_in_owner = true
-offset_left = -74.0
-offset_top = -40.0
-metadata/_edit_lock_ = true
-
 [node name="Hotbar" parent="CanvasLayerStatic" unique_id=1601094469 instance=ExtResource("5_kvpfn")]
 unique_name_in_owner = true
 offset_left = -383.0
@@ -159,26 +160,36 @@ offset_bottom = -10.0
 size_flags_vertical = 8
 metadata/_edit_lock_ = true
 
-[node name="ShopButton" type="Button" parent="CanvasLayerStatic" unique_id=1764044730]
-unique_name_in_owner = true
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -98.0
-offset_top = 23.0
-offset_right = -25.0
-offset_bottom = 71.0
-grow_horizontal = 0
-size_flags_horizontal = 8
-mouse_default_cursor_shape = 2
-theme = ExtResource("13_rysoc")
-theme_type_variation = &"CoinButton"
-text = " Shop "
-icon = ExtResource("14_264po")
-
 [node name="BackgroundMusicPlayer" parent="CanvasLayerStatic" unique_id=1446051342 instance=ExtResource("15_264po")]
 process_priority = 1
 stream = ExtResource("16_1kice")
+
+[node name="TopPanel" type="PanelContainer" parent="CanvasLayerStatic" unique_id=1690201751]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 59.0
+grow_horizontal = 2
+theme_type_variation = &"PanelContainerDark"
+theme_override_styles/panel = SubResource("StyleBoxTexture_suyxu")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayerStatic/TopPanel" unique_id=668025301]
+layout_mode = 2
+theme_override_constants/separation = 24
+alignment = 2
+
+[node name="Wallet" parent="CanvasLayerStatic/TopPanel/HBoxContainer" unique_id=1098571293 instance=ExtResource("5_vtaks")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="ShopButton" type="Button" parent="CanvasLayerStatic/TopPanel/HBoxContainer" unique_id=1764044730]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(80, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_default_cursor_shape = 2
+theme = ExtResource("13_rysoc")
+text = " Shop "
 
 [node name="CanvasLayerPopups" type="CanvasLayer" parent="." unique_id=1318873441]
 layer = 2
