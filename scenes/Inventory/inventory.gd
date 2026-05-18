@@ -10,6 +10,10 @@ var stack_in_hand: ItemStack
 func _ready():
 	_connect_slots()
 
+func _process(_delta):
+	_update_stack_in_hand()
+
+
 func _connect_slots():
 	for i in range(slot_nodes.size()):
 		var slot_node: InventorySlot = slot_nodes[i]
@@ -106,6 +110,3 @@ func drop_stack() -> void:
 func _update_stack_in_hand():
 	if !stack_in_hand: return
 	stack_in_hand.global_position = get_global_mouse_position() - stack_in_hand.size / 2
-
-func _input(_event):
-	_update_stack_in_hand()
