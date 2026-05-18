@@ -110,12 +110,8 @@ func _handle_day() -> void:
 
 ## The attacks happen during this state
 func _handle_dusk() -> void:
-	var stack = inventory.stack_in_hand
-	if stack:
-		inventory.add_item(stack.item, stack.amount)
-		inventory.remove_from_hand(stack.amount)
+	inventory.drop_stack()
 	inventory.visible = false
-	
 	cabin_area.can_select = false
 	shop_button.visible = false
 	wallet.visible = false

@@ -64,7 +64,7 @@ func _put_stack_in_slot(slot: InventorySlot):
 	slot.put_stack(item)
 
 
-# adds a given amount of the given item to the inventory
+## adds a given amount of the given item to the inventory
 func add_item(item: Item, amount: int = 1):
 	for slot in slot_nodes:
 		if !slot.stack: continue
@@ -83,7 +83,7 @@ func add_item(item: Item, amount: int = 1):
 	printerr("Could not insert " + str(amount) + "x " + item.name + " into inventory")
 
 
-# removes the given number of items (default 1) from the stack_in_hand, and returns whether it was successful
+## removes the given number of items (default 1) from the stack_in_hand, and returns whether it was successful
 func remove_from_hand(amount: int = 1) -> bool:
 	if stack_in_hand && stack_in_hand.amount >= amount:
 		stack_in_hand.amount -= amount
@@ -93,6 +93,13 @@ func remove_from_hand(amount: int = 1) -> bool:
 		return true
 	else:
 		return false
+
+## removes the currently held item (if it exists) and adds it back to the inventory
+func drop_stack() -> void:
+	var stack = stack_in_hand
+	if stack:
+		add_item(stack.item, stack.amount)
+		remove_from_hand(stack.amount)
 
 
 # Centers the item on the cursor
