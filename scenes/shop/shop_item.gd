@@ -9,7 +9,7 @@ class_name ShopItem extends Control
 
 signal try_buy_shop_item(item: Item, quantity: int, total_price: int)
 
-const DIM_OPACITY = 0.5
+const DIM_OPACITY = 0.3
 
 var quantity: int: set = _set_quantity
 var price_per: int: set = _set_price_per
@@ -19,7 +19,6 @@ var item: Item: set = _set_item
 @onready var _stack: ItemStack = %ItemStack
 @onready var _desc_label: Label = %DescLabel
 @onready var _buy_button: Button = %BuyButton
-var _initialized: bool = false
 
 #region Setter Methods
 func _set_quantity(value: int) -> void:
@@ -28,7 +27,7 @@ func _set_quantity(value: int) -> void:
 		printerr("attempted to set shop item '%s' to a negative quantity (%d)" % 
 				 [_stack.item.name, value])
 	quantity = max(0, value)
-	if not _initialized: return
+	if not is_node_ready(): await ready
 	
 	# dim the stack display if there are none left in stock
 	if quantity == 0:
@@ -42,23 +41,20 @@ func _set_quantity(value: int) -> void:
 
 func _set_price_per(value: int) -> void:
 	price_per = value
-	if not _initialized: return
+	if not is_node_ready(): await ready
+	
 	_buy_button.text = str(value)
 
 func _set_item(value: Item) -> void:
 	item = value
-	if not _initialized or not item: return
+	if not item: return
+	if not is_node_ready(): await ready
+	
 	_stack.item = item
 	_name_label.text = item.name
 	_desc_label.text = item.desc
 	
 #endregion
-
-func _ready() -> void:
-	_initialized = true
-	_set_quantity(quantity)
-	_set_price_per(price_per)
-	_set_item(item)
 
 func _emit_try_buy():
 	_emit_try_buy_many(1)
