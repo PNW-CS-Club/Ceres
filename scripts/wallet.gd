@@ -9,7 +9,7 @@ var coins: int
 func _ready() -> void:
 	coin_label.text = str(coins)
 
-#this method will subtract the amount that is purchased
+## adds `amount` to balance (may be negative)
 func change_balance(amount: int) -> void:
 	coins += amount
 	coin_label.text = str(coins)

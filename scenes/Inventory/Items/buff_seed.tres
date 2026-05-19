@@ -7,4 +7,5 @@
 script = ExtResource("1_3ipil")
 name = "Buff Seeds"
 texture = ExtResource("2_88m1j")
+desc = "A curious specimen with a thin stem and two large bulbs."
 metadata/_custom_type_script = "uid://bey7irich0wbn"

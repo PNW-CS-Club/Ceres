@@ -8,4 +8,5 @@ script = ExtResource("1_ytgrj")
 type = 4
 name = "Double Defense Seeds"
 texture = ExtResource("2_ytgrj")
+desc = "They say this one's harder to crack than a walnut."
 metadata/_custom_type_script = "uid://bey7irich0wbn"

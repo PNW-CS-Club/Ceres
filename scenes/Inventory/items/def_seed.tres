@@ -8,4 +8,5 @@ script = ExtResource("1_yrjxo")
 type = 1
 name = "Defense Seeds"
 texture = ExtResource("2_kdqh6")
+desc = "Your basic defensive plant."
 metadata/_custom_type_script = "uid://bey7irich0wbn"

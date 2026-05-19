@@ -8,4 +8,5 @@ script = ExtResource("1_barvr")
 type = 3
 name = "Double Buff Seeds"
 texture = ExtResource("2_barvr")
+desc = "These seeds sure do something!"
 metadata/_custom_type_script = "uid://bey7irich0wbn"

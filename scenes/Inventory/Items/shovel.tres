@@ -8,4 +8,5 @@ script = ExtResource("1_kdoy6")
 type = 10
 name = "Shovel"
 texture = ExtResource("2_r1trg")
+desc = "Use this to clear debris from your farm plots."
 metadata/_custom_type_script = "uid://bey7irich0wbn"

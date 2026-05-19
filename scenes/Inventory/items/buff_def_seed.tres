@@ -8,4 +8,5 @@ script = ExtResource("1_tfunj")
 type = 6
 name = "Buff-Defense Hybrid Seeds"
 texture = ExtResource("2_tfunj")
+desc = "This one is orange."
 metadata/_custom_type_script = "uid://bey7irich0wbn"

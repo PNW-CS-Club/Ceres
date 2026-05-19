@@ -1,4 +1,4 @@
-class_name ItemStack extends Panel
+class_name ItemStack extends Control
 
 @onready var item_sprite: TextureRect = %Item
 @onready var amount_label: Label = %Label
@@ -15,8 +15,8 @@ func _ready() -> void:
 
 func _update_item(value: Item): 
 	item = value
-	if !_is_initialized: return
-	if !item_sprite: printerr("(???) item_sprite is null"); return
+	if not _is_initialized or not item: return
+	if not item_sprite: printerr("(???) item_sprite is null"); return
 	item_sprite.visible = true
 	item_sprite.texture = item.texture
 	

@@ -11,3 +11,4 @@ enum Type {
 @export var type: Type
 @export var name: String
 @export var texture: Texture2D
+@export_multiline var desc: String

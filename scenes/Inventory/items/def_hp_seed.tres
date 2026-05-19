@@ -8,4 +8,5 @@ script = ExtResource("1_scins")
 type = 8
 name = "Defense-HP Hybrid Seeds"
 texture = ExtResource("2_scins")
+desc = "RIP umbrella ;("
 metadata/_custom_type_script = "uid://bey7irich0wbn"

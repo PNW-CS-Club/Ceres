@@ -8,4 +8,6 @@ script = ExtResource("1_x2gpu")
 type = 7
 name = "Buff-HP Hybrid Seeds"
 texture = ExtResource("2_x2gpu")
+desc = "Ever seen a green strawberry?!
+...oh ok."
 metadata/_custom_type_script = "uid://bey7irich0wbn"

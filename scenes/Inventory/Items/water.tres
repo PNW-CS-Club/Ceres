@@ -8,4 +8,5 @@ script = ExtResource("1_ftayp")
 type = 11
 name = "Water"
 texture = ExtResource("2_tly1v")
+desc = "Your plants need water to grow! Water a plant's plot twice to grow it to full maturity."
 metadata/_custom_type_script = "uid://bey7irich0wbn"

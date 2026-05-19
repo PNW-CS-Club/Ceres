@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://vfkojfsbl206"]
+
+[ext_resource type="Script" uid="uid://ck5nwoxy4jack" path="res://scenes/shop/shop_item.gd" id="1_kfj00"]
+[ext_resource type="PackedScene" uid="uid://2r4xhwexho8e" path="res://scenes/Inventory/ItemStack.tscn" id="2_kfj00"]
+[ext_resource type="Theme" uid="uid://w2av5bmjgecq" path="res://theme/ceres_theme.tres" id="2_xcw7k"]
+[ext_resource type="Texture2D" uid="uid://di04akv5g5qqk" path="res://art/phytion-icon.png" id="3_1d7d6"]
+
+[node name="ShopItem" type="VBoxContainer" unique_id=86234122]
+custom_minimum_size = Vector2(200, 0)
+theme_override_constants/separation = 8
+script = ExtResource("1_kfj00")
+
+[node name="NameLabel" type="Label" parent="." unique_id=786938506]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Name"
+horizontal_alignment = 1
+
+[node name="ItemStack" parent="." unique_id=1373645742 instance=ExtResource("2_kfj00")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+
+[node name="DescLabel" type="Label" parent="." unique_id=1983201695]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 16)
+layout_mode = 2
+theme_override_constants/line_spacing = 0
+theme_override_constants/paragraph_spacing = 4
+theme_override_font_sizes/font_size = 11
+text = "This plant will help you achieve maximum synergy."
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="BuyButton" type="Button" parent="." unique_id=1656169513]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("2_xcw7k")
+theme_type_variation = &"CoinButton"
+text = "20"
+icon = ExtResource("3_1d7d6")
+
+[connection signal="pressed" from="BuyButton" to="." method="_emit_try_buy"]

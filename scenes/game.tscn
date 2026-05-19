@@ -1,7 +1,7 @@
 [gd_scene format=4 uid="uid://b1k7q2homxg7t"]
 
 [ext_resource type="Script" uid="uid://gvtwx7xrxark" path="res://scripts/game.gd" id="1_e2o6t"]
-[ext_resource type="PackedScene" uid="uid://dye0vc4g0himf" path="res://scenes/shop.tscn" id="4_0tnpc"]
+[ext_resource type="PackedScene" uid="uid://dye0vc4g0himf" path="res://scenes/shop/shop.tscn" id="4_0tnpc"]
 [ext_resource type="TileSet" uid="uid://csb6dh13xv76o" path="res://art/PlanetTerrain.tres" id="4_gee14"]
 [ext_resource type="Script" uid="uid://cgvha3slno473" path="res://scripts/farm_tile_layer.gd" id="4_u5sy4"]
 [ext_resource type="PackedScene" uid="uid://mbnwgcxrgbj1" path="res://scenes/cabin.tscn" id="5_dinhu"]

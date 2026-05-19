@@ -8,4 +8,5 @@ script = ExtResource("1_hwr7k")
 type = 2
 name = "HP Seeds"
 texture = ExtResource("2_dcnpj")
+desc = "This one has extra HP."
 metadata/_custom_type_script = "uid://bey7irich0wbn"

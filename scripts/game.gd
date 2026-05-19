@@ -58,7 +58,7 @@ func _ready():
 	# Signals
 	farm.on_tile_click.connect(_click_tile)
 	cabin.end_day.connect(_end_day)
-	shop.item_bought.connect(_click_purchase)
+	shop.try_buy.connect(_click_purchase)
 	
 	enemy_attack.squares_to_attack.connect(_attack_squares)
 	#Game State
@@ -80,7 +80,7 @@ func set_state(state: Game.GameStates) -> void:
 			_handle_dusk()
 		GameStates.NIGHT:
 			_handle_night()
-		
+
 ## The game starts here. Give the player resources
 func _handle_dawn() -> void:
 	current_day += 1
@@ -99,12 +99,13 @@ func _handle_dawn() -> void:
 	await daylight_cycle.transition_finished
 	print("state is now dawn")
 	set_state(GameStates.DAY)
-	
+
 ## The player does most of their actions here
 func _handle_day() -> void:
 	daylight_cycle.transition_to(DaylightCycle.Phase.DAY)
 	inventory.visible = true
 	cabin_area.can_select = true
+	shop.refresh()
 	shop_button.disabled = false
 	wallet.visible = true
 	print("state is now day")
@@ -285,14 +286,14 @@ func _add_debris() -> void:
 		#NOTE This gives some grace to the player so that they see less debris with nearly full boards.
 
 #adds item to inventory and subtracts price from wallet
-func _click_purchase(item: Item, price: int) ->void:
+func _click_purchase(item: Item, quantity: int, price: int, index: int) -> void:
 	if price > wallet.coins:
 		print("You do not have enough money")
 	else:
 		print("You have bought the item")
 		wallet.change_balance(-price)
 		inventory.add_item(item)
-	
+		shop.remove_at_index(quantity, index)
 
 ## Reset all the wet tiles to dry tiles
 func _reset_wet_to_dry() -> void:
