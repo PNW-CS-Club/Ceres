@@ -54,13 +54,13 @@ func _square_attack(guaranteed_hit: bool, size: int) -> Array[Vector2i]:
 		# find column start index
 		if (plant_coords.x + attack_length) > (grid.WIDTH - 1):
 			var diff = plant_coords.x + attack_length - grid.WIDTH + 1
-			column = plant_coords.x - diff
+			column = clampi(plant_coords.x - diff,0,grid.WIDTH-1)
 		else:
 			column = plant_coords.x
 		# find row start index
 		if (plant_coords.y + attack_length) > (grid.HEIGHT - 1):
 			var diff = plant_coords.y + attack_length - grid.HEIGHT + 1
-			row = plant_coords.y - diff
+			row = clampi(plant_coords.y - diff,0,grid.HEIGHT-1)
 		else:
 			row = plant_coords.y
 		# mark squares
