@@ -1,12 +1,16 @@
 [gd_scene format=3 uid="uid://dv2es8w1ejiuj"]
 
-[ext_resource type="Script" path="res://plants/buff_buff/buff_buff_plant.gd" id="1_fqraa"]
+[ext_resource type="Script" uid="uid://c7ise3ab6wtc" path="res://plants/buff_buff/buff_buff_plant.gd" id="1_fqraa"]
 [ext_resource type="Texture2D" uid="uid://cyko0x6ua3s87" path="res://art/plants/BuffxBuff/BuffxBuff_sheet.png" id="1_vlpa8"]
 [ext_resource type="Resource" uid="uid://dv0sx4k8goykw" path="res://plants/buff_buff/buff_buff_plant_stats.tres" id="2_7ihp4"]
+[ext_resource type="PackedScene" uid="uid://ckin2nvrnf8he" path="res://scenes/health_bar.tscn" id="3_bu4kw"]
 
 [node name="BuffBuffPlant" type="Node2D" unique_id=1386888787]
 script = ExtResource("1_fqraa")
 stats = ExtResource("2_7ihp4")
+
+[node name="HealthBar" parent="." unique_id=1565933631 instance=ExtResource("3_bu4kw")]
+unique_name_in_owner = true
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1908320873]
 texture = ExtResource("1_vlpa8")

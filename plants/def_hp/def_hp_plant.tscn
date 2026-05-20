@@ -1,8 +1,9 @@
 [gd_scene format=3 uid="uid://bamydx7slu2tx"]
 
-[ext_resource type="Script" path="res://plants/def_hp/def_hp_plant.gd" id="1_10o5s"]
+[ext_resource type="Script" uid="uid://drx6gi3f4qaf3" path="res://plants/def_hp/def_hp_plant.gd" id="1_10o5s"]
 [ext_resource type="Script" uid="uid://bcn1nww4e1u45" path="res://scripts/stats.gd" id="2_axqgi"]
 [ext_resource type="Texture2D" uid="uid://dps1rhkp8rcqv" path="res://art/plants/DefxHP/DefHP Sprites.png" id="3_axqgi"]
+[ext_resource type="PackedScene" uid="uid://ckin2nvrnf8he" path="res://scenes/health_bar.tscn" id="4_u1q5f"]
 
 [sub_resource type="Resource" id="Resource_u1q5f"]
 resource_local_to_scene = true
@@ -18,3 +19,6 @@ stats = SubResource("Resource_u1q5f")
 texture = ExtResource("3_axqgi")
 offset = Vector2(0, -29.87)
 hframes = 3
+
+[node name="HealthBar" parent="." unique_id=1565933631 instance=ExtResource("4_u1q5f")]
+unique_name_in_owner = true

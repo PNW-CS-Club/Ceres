@@ -253,7 +253,7 @@ func _give_resources() -> void:
 	if current_day == 1: # Consistent day 1 resources
 		for i in 3: # Pick 3 random basic seeds
 			random_seed = BASIC_SEEDS.pick_random()
-			inventory.add_item(BUFF_SEED_ITEM,1)
+			inventory.add_item(random_seed,1)
 		wallet.change_balance(50) ## Give the player 50 coins
 		inventory.add_item(SHOVEL_ITEM,1)
 		inventory.add_item(WATER_ITEM, 2)

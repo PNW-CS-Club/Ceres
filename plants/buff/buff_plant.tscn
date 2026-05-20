@@ -17,7 +17,7 @@ stats = SubResource("Resource_38y82")
 [node name="HealthBar" parent="." unique_id=1565933631 instance=ExtResource("3_38y82")]
 unique_name_in_owner = true
 z_index = 20
-position = Vector2(0, 26)
+position = Vector2(0, 25)
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1649174475]
 z_index = 10

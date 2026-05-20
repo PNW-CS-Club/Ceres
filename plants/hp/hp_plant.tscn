@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://xdm43h0mde0a" path="res://plants/buff/buff_plant.gd" id="1_a4vw0"]
 [ext_resource type="Resource" uid="uid://b470201sxtlrh" path="res://plants/hp/hp_plant_stats.tres" id="2_ixxof"]
 [ext_resource type="Texture2D" uid="uid://ck55bh6e1xd1s" path="res://art/plants/HP/HP_sheet.png" id="3_ixxof"]
+[ext_resource type="PackedScene" uid="uid://ckin2nvrnf8he" path="res://scenes/health_bar.tscn" id="4_8ax2p"]
 
 [node name="hp_plant" type="Node2D" unique_id=1424423727]
 script = ExtResource("1_a4vw0")
@@ -16,3 +17,6 @@ offset = Vector2(0, -18.335)
 hframes = 3
 region_enabled = true
 region_rect = Rect2(0, 20, 390, 260)
+
+[node name="HealthBar" parent="." unique_id=1565933631 instance=ExtResource("4_8ax2p")]
+unique_name_in_owner = true

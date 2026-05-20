@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://ckcxqvx2t4s8s" path="res://plants/def/def_plant.gd" id="1_3twyc"]
 [ext_resource type="Script" uid="uid://bcn1nww4e1u45" path="res://scripts/stats.gd" id="2_2m0b1"]
 [ext_resource type="Texture2D" uid="uid://cwl8n4ce8qmmv" path="res://art/plants/Def/Def_sheet.png" id="3_t5pj4"]
+[ext_resource type="PackedScene" uid="uid://ckin2nvrnf8he" path="res://scenes/health_bar.tscn" id="4_mcwha"]
 
 [sub_resource type="Resource" id="Resource_x8mqw"]
 resource_local_to_scene = true
@@ -22,3 +23,6 @@ hframes = 3
 frame = 2
 region_enabled = true
 region_rect = Rect2(0, 0, 390, 325)
+
+[node name="HealthBar" parent="." unique_id=1565933631 instance=ExtResource("4_mcwha")]
+unique_name_in_owner = true
