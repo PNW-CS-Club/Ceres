@@ -16,6 +16,30 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0s7fu"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u1dt5"]
+bg_color = Color(0.29803923, 0.28235295, 0.4862745, 0.5568628)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.29803923, 0.28235295, 0.4862745, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vw0tb"]
+bg_color = Color(0.4, 0.54901963, 0.6156863, 0.65882355)
+border_width_left = 2
+border_width_top = 2
+border_color = Color(0.5764706, 0.7294118, 0.6784314, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+corner_detail = 1
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0s7fu"]
 bg_color = Color(0, 0, 0, 0.58431375)
 
@@ -65,6 +89,9 @@ PanelDark/base_type = &"Panel"
 PanelDark/styles/panel = ExtResource("5_sctaj")
 PanelLight/base_type = &"Panel"
 PanelLight/styles/panel = ExtResource("6_lwjxu")
+ProgressBar/constants/outline_size = 5
+ProgressBar/styles/background = SubResource("StyleBoxFlat_u1dt5")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_vw0tb")
 TranslucentButton/base_type = &"Button"
 TranslucentButton/styles/disabled = ExtResource("10_u1dt5")
 TranslucentButton/styles/focus = ExtResource("10_u1dt5")

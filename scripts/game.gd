@@ -136,6 +136,9 @@ func _handle_night() -> void:
 	await daylight_cycle.transition_finished
 	print("state is now night")
 	set_state(GameStates.DAWN)
+	# Check if the player lost
+	if grid.plants.is_empty():
+		pass
 
 func _end_day() -> void:
 	cabin.visible = false
@@ -246,23 +249,23 @@ func _give_resources() -> void:
 	const BASIC_SEEDS: Array = [BUFF_SEED_ITEM, HP_SEED_ITEM, DEF_SEED_ITEM]
 	const COMBINED_SEEDS: Array = [BUFF_BUFF_SEED_ITEM,BUFF_DEF_SEED_ITEM,BUFF_HP_SEED_ITEM,DEF_DEF_SEED_ITEM,DEF_HP_SEED_ITEM,HP_HP_SEED_ITEM]
 	const ALL_SEEDS: Array = BASIC_SEEDS + COMBINED_SEEDS
-	var seed
+	var random_seed
 	if current_day == 1: # Consistent day 1 resources
 		for i in 3: # Pick 3 random basic seeds
-			seed = BASIC_SEEDS.pick_random()
-			inventory.add_item(seed,1)
+			random_seed = BASIC_SEEDS.pick_random()
+			inventory.add_item(BUFF_SEED_ITEM,1)
 		wallet.change_balance(50) ## Give the player 50 coins
 		inventory.add_item(SHOVEL_ITEM,1)
 		inventory.add_item(WATER_ITEM, 2)
 		return
 	if current_day < 3:
 		for i in 2:
-			seed = BASIC_SEEDS.pick_random()
-			inventory.add_item(seed,1)
+			random_seed = BASIC_SEEDS.pick_random()
+			inventory.add_item(random_seed,1)
 	else:
 		for i in 2:
-			seed = ALL_SEEDS.pick_random()
-			inventory.add_item(seed,1)
+			random_seed = ALL_SEEDS.pick_random()
+			inventory.add_item(random_seed,1)
 	wallet.change_balance(rng.randi_range(20,50))
 	inventory.add_item(SHOVEL_ITEM,rng.randi_range(1,3))
 	inventory.add_item(WATER_ITEM,randi_range(2,4))
