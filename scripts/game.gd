@@ -2,6 +2,7 @@ class_name Game extends Node2D
 
 signal attacks_complete
 
+enum GameStates {DAWN, DAY, DUSK, NIGHT}
 
 @onready var farm: FarmTileLayer = %TileMapLayerFarm
 @onready var inventory: Inventory = %Hotbar
@@ -20,8 +21,6 @@ signal attacks_complete
 @onready var sfx_dig: AudioStreamPlayer = %sfx_dig
 @onready var sfx_plant: AudioStreamPlayer = %sfx_plant
 @onready var sfx_water: AudioStreamPlayer = %sfx_water
-
-enum GameStates {DAWN, DAY, DUSK, NIGHT}
 
 const BUFF_PLANT_SCENE: PackedScene = preload("uid://dciwxjx24qc3d")
 const DEF_PLANT_SCENE: PackedScene = preload("uid://cj5dv7qg2wly8")
@@ -70,7 +69,7 @@ func _ready():
 #region Game State
 
 func set_state(state: Game.GameStates) -> void:
-	print("setting state to:",state)
+	print("Transitioning to ", Game.GameStates.find_key(state))
 	match state:
 		GameStates.DAWN:
 			_handle_dawn()
@@ -86,7 +85,7 @@ func _handle_dawn() -> void:
 	current_day += 1
 	# Display good day overview if not the first day
 	if current_day > 1:
-		pass #Display good day overview
+		pass # Display good day overview
 	
 	inventory.visible = false
 	cabin_area.can_select = false
@@ -97,7 +96,7 @@ func _handle_dawn() -> void:
 	_add_debris()
 	daylight_cycle.transition_to(DaylightCycle.Phase.DAWN)
 	await daylight_cycle.transition_finished
-	print("state is now dawn")
+	print("DAWN phase started")
 	set_state(GameStates.DAY)
 
 ## The player does most of their actions here
@@ -108,7 +107,7 @@ func _handle_day() -> void:
 	shop.refresh()
 	shop_button.disabled = false
 	wallet.visible = true
-	print("state is now day")
+	print("DAY phase started")
 
 ## The attacks happen during this state
 func _handle_dusk() -> void:
@@ -119,7 +118,7 @@ func _handle_dusk() -> void:
 	wallet.visible = true
 	daylight_cycle.transition_to(DaylightCycle.Phase.DUSK)
 	await daylight_cycle.transition_finished
-	print("state is now dusk")
+	print("DUSK phase started")
 	var rng = RandomNumberGenerator.new()
 	var number_of_patterns = rng.randi_range(1,3)
 	for i in number_of_patterns:
@@ -134,7 +133,7 @@ func _handle_dusk() -> void:
 func _handle_night() -> void:
 	daylight_cycle.transition_to(DaylightCycle.Phase.NIGHT)
 	await daylight_cycle.transition_finished
-	print("state is now night")
+	print("NIGHT phase started")
 	set_state(GameStates.DAWN)
 	# Check if the player lost
 	if grid.plants.is_empty():
@@ -147,24 +146,21 @@ func _end_day() -> void:
 
 #region Player Actions
 func _click_tile(coords: Vector2i) -> void:
-	print("\nclicked on farm plot at " + str(coords))
 	var plot_contents: Node = grid.at(coords)
 	
 	if inventory.stack_in_hand:
 		var item: Item = inventory.stack_in_hand.item
 		
 		if !plot_contents:
-			print("> trying to place " + item.name)
-			if _try_to_plant(coords, item):
-				print("> success")
-				return
-			else: print("> failed")
+			_try_to_plant(coords, item)
 		elif plot_contents is Plant:
 			if item.type == Item.Type.WATER:
 				_try_to_water(coords)
-		else:
+		elif plot_contents is Debris:
 			if item.type == Item.Type.SHOVEL:
 				_dig_up(coords)
+		else:
+			printerr("Unexpected plot_contents (%s) at coords %s" % [plot_contents, coords])
 
 
 ## If the given item is plantable, it is consumed and the plant is created.
@@ -172,7 +168,7 @@ func _click_tile(coords: Vector2i) -> void:
 ## This function assumes that `item` is in hand and the plot is empty.
 func _try_to_plant(coords: Vector2i, item: Item) -> bool:
 	if farm.get_cell_atlas_coords(coords) == DEBRIS_TILE: # Debris
-		print("> failed because the land has debris.")
+		print("Planting at %s failed because the land has debris" % [coords])
 		return false
 	# try to find a plant to instantiate
 	var plant_scene: PackedScene
@@ -218,12 +214,13 @@ func _dig_up(coords: Vector2i) -> void:
 		farm.set_cell(coords, 9, DRY_TILE)
 		sfx_dig.play()
 		inventory.remove_from_hand(1)
+	else:
+		print("Cannot dig up non-debris target at %s" % [coords])
 
 ## If the coordinate is a plant, the watering can is used and the plant is upgraded.
 ## Returns whether it was successful.
 ## A plant can only be watered 1 time per day.
 func _try_to_water(coords: Vector2i) -> bool:
-	print("Trying to water", coords)
 	var plant: Plant = grid.at(coords)
 	# Fail if the plant is already max level.
 	if plant.stats.level >= 3:
@@ -236,7 +233,6 @@ func _try_to_water(coords: Vector2i) -> bool:
 	# Update the farm tile to the watered tile
 	farm.set_cell(coords, 9, WET_TILE)
 	sfx_water.play()
-	
 	
 	inventory.remove_from_hand(1)
 	return true
@@ -291,9 +287,8 @@ func _add_debris() -> void:
 #adds item to inventory and subtracts price from wallet
 func _click_purchase(item: Item, quantity: int, price: int, index: int) -> void:
 	if price > wallet.coins:
-		print("You do not have enough money")
+		print("Only had %d of %d coins required to buy %dx %s" % [wallet.coins, price, quantity, item.name])
 	else:
-		print("You have bought the item")
 		wallet.change_balance(-price)
 		inventory.add_item(item)
 		shop.remove_at_index(quantity, index)
@@ -306,7 +301,7 @@ func _reset_wet_to_dry() -> void:
 
 ## Deal damage to the marked squares
 func _attack_squares(marked_squares: Array[Vector2i]) -> void:
-	print("now attacking squares")
+	print("Now attacking the targeted squares")
 	for square in marked_squares:
 		# Place the attack marker on the square
 		attack_highlight_marker.global_position = farm.to_global(farm.map_to_local(square))
@@ -318,8 +313,7 @@ func _attack_squares(marked_squares: Array[Vector2i]) -> void:
 			sfx_attackhit.play()
 		else:
 			sfx_attackmiss.play()
-		await get_tree().create_timer(0.2).timeout
-		#var plant = grid.at(square)
+		await get_tree().create_timer(0.1).timeout
 	attack_highlight_marker.visible = false
 	attacks_complete.emit()
 
