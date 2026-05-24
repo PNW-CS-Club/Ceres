@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://v2v3v333mxdt"
-path="res://.godot/imported/png-clipart-logo-font-brand-product-health-potion-logo-signage-thumbnail.png-35c43fb0b6968dca7658ede444c88bc5.ctex"
+uid="uid://1pxfcjv2a5r7"
+path="res://.godot/imported/regular-day.png-b79ee04b5b874988a751d0cb86ff60e9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Potion Picture Test Folder/png-clipart-logo-font-brand-product-health-potion-logo-signage-thumbnail.png"
-dest_files=["res://.godot/imported/png-clipart-logo-font-brand-product-health-potion-logo-signage-thumbnail.png-35c43fb0b6968dca7658ede444c88bc5.ctex"]
+source_file="res://art/day_icons/regular-day.png"
+dest_files=["res://.godot/imported/regular-day.png-b79ee04b5b874988a751d0cb86ff60e9.ctex"]
 
 [params]
 

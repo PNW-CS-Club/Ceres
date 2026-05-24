@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bactna0gclr5l"
-path="res://.godot/imported/pngtree-glossy-black-potion-bottle-with-cork-lid-for-magic-alchemy-and-png-image_15895373.png-1e751fd500d1061ffaa8d7f502ca4716.ctex"
+uid="uid://dw85xsl6f5267"
+path="res://.godot/imported/today.png-b752618c2f3b58a596a70e14537417fb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Potion Picture Test Folder/pngtree-glossy-black-potion-bottle-with-cork-lid-for-magic-alchemy-and-png-image_15895373.png"
-dest_files=["res://.godot/imported/pngtree-glossy-black-potion-bottle-with-cork-lid-for-magic-alchemy-and-png-image_15895373.png-1e751fd500d1061ffaa8d7f502ca4716.ctex"]
+source_file="res://art/day_icons/today.png"
+dest_files=["res://.godot/imported/today.png-b752618c2f3b58a596a70e14537417fb.ctex"]
 
 [params]
 
