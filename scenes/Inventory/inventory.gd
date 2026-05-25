@@ -42,7 +42,7 @@ func _stack_onto_slot(slot: InventorySlot):
 	# combine stacks
 	if stack_in_hand.item.type == slot.stack.item.type:
 		slot.stack.amount += stack_in_hand.amount
-		remove_child(stack_in_hand)
+		_destroy_stack_in_hand()
 
 func _swap_with_hand(slot: InventorySlot):
 	var tmp_amt = stack_in_hand.amount
@@ -58,7 +58,7 @@ func _take_stack_from_slot(slot: InventorySlot):
 		add_child(stack_in_hand)
 		_update_stack_in_hand()
 
-# Inserts an Item
+
 func _put_stack_in_slot(slot: InventorySlot):
 	var item = stack_in_hand
 	
@@ -92,8 +92,7 @@ func remove_from_hand(amount: int = 1) -> bool:
 	if stack_in_hand && stack_in_hand.amount >= amount:
 		stack_in_hand.amount -= amount
 		if stack_in_hand.amount == 0:
-			remove_child(stack_in_hand)
-			stack_in_hand = null
+			_destroy_stack_in_hand()
 		return true
 	else:
 		return false
@@ -110,3 +109,8 @@ func drop_stack() -> void:
 func _update_stack_in_hand():
 	if !stack_in_hand: return
 	stack_in_hand.global_position = get_global_mouse_position() - stack_in_hand.size / 2
+
+func _destroy_stack_in_hand():
+	remove_child(stack_in_hand)
+	stack_in_hand.queue_free()
+	stack_in_hand = null

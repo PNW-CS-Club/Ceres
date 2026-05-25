@@ -1,0 +1,67 @@
+[gd_scene format=3 uid="uid://d32m1j0umy5jm"]
+
+[ext_resource type="Script" uid="uid://cv4ddqr6tm61v" path="res://scenes/blessing/blessing_menu.gd" id="1_kuqj1"]
+[ext_resource type="Theme" uid="uid://w2av5bmjgecq" path="res://theme/ceres_theme.tres" id="2_jnbry"]
+[ext_resource type="PackedScene" uid="uid://bvurex3vy3owf" path="res://scenes/blessing/blessing_item.tscn" id="3_vd8am"]
+
+[node name="BlessingMenuBg" type="Button" unique_id=1546183494]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"TranslucentButton"
+script = ExtResource("1_kuqj1")
+
+[node name="BlessingMenuPanel" type="PanelContainer" parent="." unique_id=327884665]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -237.0
+offset_top = -142.0
+offset_right = 237.0
+offset_bottom = 142.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"PanelContainerDark"
+
+[node name="MarginContainer" type="MarginContainer" parent="BlessingMenuPanel" unique_id=930844495]
+layout_mode = 2
+theme = ExtResource("2_jnbry")
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 12
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BlessingMenuPanel/MarginContainer" unique_id=1610944105]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="BlessingMenuPanel/MarginContainer/VBoxContainer" unique_id=2087617659]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Blessings"
+horizontal_alignment = 1
+
+[node name="BlessingItemContainer" type="HBoxContainer" parent="BlessingMenuPanel/MarginContainer/VBoxContainer" unique_id=2076686204]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="BlessingItem1" parent="BlessingMenuPanel/MarginContainer/VBoxContainer/BlessingItemContainer" unique_id=1672647514 instance=ExtResource("3_vd8am")]
+layout_mode = 2
+
+[node name="BlessingItem2" parent="BlessingMenuPanel/MarginContainer/VBoxContainer/BlessingItemContainer" unique_id=498451624 instance=ExtResource("3_vd8am")]
+layout_mode = 2
+
+[node name="BlessingItem3" parent="BlessingMenuPanel/MarginContainer/VBoxContainer/BlessingItemContainer" unique_id=368319255 instance=ExtResource("3_vd8am")]
+visible = false
+layout_mode = 2
+
+[node name="BlessingItem4" parent="BlessingMenuPanel/MarginContainer/VBoxContainer/BlessingItemContainer" unique_id=687173430 instance=ExtResource("3_vd8am")]
+visible = false
+layout_mode = 2

@@ -26,18 +26,12 @@
 [ext_resource type="Gradient" uid="uid://c5e4hlmqk1pja" path="res://resources/gradient_daylight.tres" id="15_ir15t"]
 [ext_resource type="AudioStream" uid="uid://yrylvybdsv0i" path="res://Sound/CeresTheme.wav" id="16_1kice"]
 [ext_resource type="Script" uid="uid://dvw2r6uuyoyuo" path="res://scripts/cabin_area.gd" id="16_rysoc"]
+[ext_resource type="StyleBox" uid="uid://d0301p28m8dpl" path="res://theme/stylebox_panel_top.tres" id="23_suyxu"]
 [ext_resource type="PackedScene" uid="uid://cyyvn2j7hdcra" path="res://scenes/forecast/forecast.tscn" id="24_sww3w"]
-[ext_resource type="Texture2D" uid="uid://o4cm7mw5it73" path="res://theme/ui_images/panel-top-bar.png" id="25_sww3w"]
+[ext_resource type="PackedScene" uid="uid://d32m1j0umy5jm" path="res://scenes/blessing/blessing_menu.tscn" id="29_suyxu"]
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_ir15t"]
 gradient = ExtResource("15_ir15t")
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_suyxu"]
-texture = ExtResource("25_sww3w")
-texture_margin_left = 6.0
-texture_margin_top = 6.0
-texture_margin_right = 6.0
-texture_margin_bottom = 6.0
 
 [node name="Game" type="Node2D" unique_id=1390331388]
 script = ExtResource("1_e2o6t")
@@ -172,7 +166,7 @@ offset_bottom = 59.0
 grow_horizontal = 2
 theme = ExtResource("13_rysoc")
 theme_type_variation = &"PanelContainerDark"
-theme_override_styles/panel = SubResource("StyleBoxTexture_suyxu")
+theme_override_styles/panel = ExtResource("23_suyxu")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayerStatic/TopPanel" unique_id=668025301]
 layout_mode = 2
@@ -211,5 +205,9 @@ unique_name_in_owner = true
 visible = false
 
 [node name="Cabin" parent="CanvasLayerPopups" unique_id=1657024557 instance=ExtResource("5_dinhu")]
+unique_name_in_owner = true
+visible = false
+
+[node name="BlessingMenu" parent="CanvasLayerPopups" unique_id=327884665 instance=ExtResource("29_suyxu")]
 unique_name_in_owner = true
 visible = false

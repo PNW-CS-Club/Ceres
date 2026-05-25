@@ -11,6 +11,7 @@ enum GameStates {DAWN, DAY, DUSK, NIGHT}
 @onready var shop_button: BaseButton = %ShopButton
 @onready var cabin: Cabin = %Cabin
 @onready var cabin_area: CabinArea = %CabinArea
+@onready var blessing_menu: BlessingMenu = %BlessingMenu
 @onready var wallet: Wallet = %Wallet
 @onready var daylight_cycle: DaylightCycle = %DaylightCycle
 @onready var attack_highlight_marker: Sprite2D = %AttackHighlightMarker
@@ -46,7 +47,7 @@ const SHOVEL_ITEM: Item = preload("uid://us2gsrgycubo")
 const WATER_ITEM: Item = preload("uid://dot1l1nu30k12")
 
 const current_state = GameStates.DAWN
-var current_day: int
+var current_day: int = 0
 
 # Atlas coords
 const WET_TILE: Vector2i = Vector2i(0,0)
@@ -58,11 +59,11 @@ func _ready():
 	farm.on_tile_click.connect(_click_tile)
 	cabin.end_day.connect(_end_day)
 	shop.try_buy.connect(_click_purchase)
+	blessing_menu.accept.connect(_click_blessing)
 	
 	enemy_attack.squares_to_attack.connect(_attack_squares)
 	#Game State
 	set_state(GameStates.DAWN)
-	current_day = 0
 	attack_highlight_marker.visible = false
 
 
@@ -91,12 +92,24 @@ func _handle_dawn() -> void:
 	cabin_area.can_select = false
 	shop_button.disabled = true
 	wallet.visible = true
-	_give_resources()
+	var blessings = blessing_menu.generate_blessings(current_day)
+	blessing_menu.refresh(blessings)
 	_reset_wet_to_dry()
 	_add_debris()
 	daylight_cycle.transition_to(DaylightCycle.Phase.DAWN)
 	await daylight_cycle.transition_finished
 	print("DAWN phase started")
+	
+	if current_day == 1: 
+		wallet.change_balance(50)
+	else:
+		var rng = RandomNumberGenerator.new()
+		wallet.change_balance(rng.randi_range(20,50))
+	
+	blessing_menu.show()
+	await blessing_menu.done
+	blessing_menu.hide()
+	
 	set_state(GameStates.DAY)
 
 ## The player does most of their actions here
@@ -239,34 +252,6 @@ func _try_to_water(coords: Vector2i) -> bool:
 #endregion
 
 #region Private Helper Functions
-## Give the player resources
-func _give_resources() -> void:
-	var rng = RandomNumberGenerator.new()
-	const BASIC_SEEDS: Array = [BUFF_SEED_ITEM, HP_SEED_ITEM, DEF_SEED_ITEM]
-	const COMBINED_SEEDS: Array = [BUFF_BUFF_SEED_ITEM,BUFF_DEF_SEED_ITEM,BUFF_HP_SEED_ITEM,DEF_DEF_SEED_ITEM,DEF_HP_SEED_ITEM,HP_HP_SEED_ITEM]
-	const ALL_SEEDS: Array = BASIC_SEEDS + COMBINED_SEEDS
-	var random_seed
-	if current_day == 1: # Consistent day 1 resources
-		for i in 3: # Pick 3 random basic seeds
-			random_seed = BASIC_SEEDS.pick_random()
-			inventory.add_item(random_seed,1)
-		wallet.change_balance(50) ## Give the player 50 coins
-		inventory.add_item(SHOVEL_ITEM,1)
-		inventory.add_item(WATER_ITEM, 2)
-		return
-	if current_day < 3:
-		for i in 2:
-			random_seed = BASIC_SEEDS.pick_random()
-			inventory.add_item(random_seed,1)
-	else:
-		for i in 2:
-			random_seed = ALL_SEEDS.pick_random()
-			inventory.add_item(random_seed,1)
-	wallet.change_balance(rng.randi_range(20,50))
-	inventory.add_item(SHOVEL_ITEM,rng.randi_range(1,3))
-	inventory.add_item(WATER_ITEM,randi_range(2,4))
-
-
 
 ## Used to place debris in the farm. Only places in empty tiles
 func _add_debris() -> void:
@@ -284,14 +269,18 @@ func _add_debris() -> void:
 		#NOTE Even if the function failed to add certain debris we still reduce the amount.
 		#NOTE This gives some grace to the player so that they see less debris with nearly full boards.
 
-#adds item to inventory and subtracts price from wallet
+## Adds item to inventory and subtracts price from wallet
 func _click_purchase(item: Item, quantity: int, price: int, index: int) -> void:
 	if price > wallet.coins:
 		print("Only had %d of %d coins required to buy %dx %s" % [wallet.coins, price, quantity, item.name])
 	else:
 		wallet.change_balance(-price)
-		inventory.add_item(item)
+		inventory.add_item(item, quantity)
 		shop.remove_at_index(quantity, index)
+
+## Adds blessing item stack to inventory
+func _click_blessing(stack: ItemStack) -> void:
+	inventory.add_item(stack.item, stack.amount)
 
 ## Reset all the wet tiles to dry tiles
 func _reset_wet_to_dry() -> void:

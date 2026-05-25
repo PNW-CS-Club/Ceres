@@ -7,6 +7,9 @@ class_name ItemStack extends Control
 var item: Item: set = _update_item
 var amount: int: set = _update_amount
 
+func _to_string() -> String:
+	return "Stack[%dx %s]" % [amount, item.name]
+
 func _update_item(value: Item): 
 	item = value
 	if not is_node_ready(): await ready

@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://bvurex3vy3owf"]
+
+[ext_resource type="Script" uid="uid://dtyo60tupvmgp" path="res://scenes/blessing/blessing_item.gd" id="1_jgh80"]
+[ext_resource type="PackedScene" uid="uid://2r4xhwexho8e" path="res://scenes/Inventory/ItemStack.tscn" id="2_73x0s"]
+[ext_resource type="Theme" uid="uid://w2av5bmjgecq" path="res://theme/ceres_theme.tres" id="3_q170c"]
+
+[node name="BlessingItem" type="VBoxContainer" unique_id=1672647514]
+custom_minimum_size = Vector2(200, 0)
+theme_override_constants/separation = 8
+script = ExtResource("1_jgh80")
+
+[node name="NameLabel" type="Label" parent="." unique_id=1894247298]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Name"
+horizontal_alignment = 1
+
+[node name="ItemStack" parent="." unique_id=1373645742 instance=ExtResource("2_73x0s")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+
+[node name="DescLabel" type="Label" parent="." unique_id=589546307]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 16)
+layout_mode = 2
+theme_override_constants/line_spacing = 0
+theme_override_constants/paragraph_spacing = 4
+theme_override_font_sizes/font_size = 11
+text = "This plant will help you achieve maximum synergy."
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="AcceptButton" type="Button" parent="." unique_id=1052121131]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("3_q170c")
+text = "Accept"
+
+[connection signal="pressed" from="AcceptButton" to="." method="_emit_accept"]

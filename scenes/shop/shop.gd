@@ -48,23 +48,19 @@ func refresh() -> void:
 	hybrid_pool.shuffle()
 	var double_pool = [BUFF_BUFF_SEED, DEF_DEF_SEED, HP_HP_SEED]
 	double_pool.shuffle()
-	
-	
-	# add a BASIC SEED to the shop
-	var basic_item = basic_pool.pop_back()
-	# basic_cost is a random value between 30 and 50, rounded to nearest 5
-	var basic_cost = snapped(_rng.randi_range(30, 50), 5) 
-	values.append([ basic_item, 1, basic_cost ])
-	
-	
-	var tier2_pool = []
-	tier2_pool.append_array(hybrid_pool)
-	tier2_pool.append_array(double_pool)
+	var tier2_pool = hybrid_pool + double_pool
 	tier2_pool.shuffle()
+	
+	# add 1-2 BASIC SEEDS to the shop
+	var basic_item = basic_pool.pop_back()
+	var basic_amt = _rng.randi_range(1, 2)
+	# basic_cost is a random value between 30 and 50, rounded to nearest 5
+	var basic_cost = snappedi(_rng.randi_range(30, 50), 5) 
+	values.append([ basic_item, basic_amt, basic_cost ])
 	
 	# add a TIER 2 SEED to the shop
 	var tier2_item = tier2_pool.pop_back()
-	var tier2_cost = snapped(_rng.randi_range(80, 120), 5)
+	var tier2_cost = snappedi(_rng.randi_range(80, 120), 5)
 	values.append([ tier2_item, 1, tier2_cost ])
 	
 	
