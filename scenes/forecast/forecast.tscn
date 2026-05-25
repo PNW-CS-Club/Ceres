@@ -1,0 +1,81 @@
+[gd_scene format=3 uid="uid://cyyvn2j7hdcra"]
+
+[ext_resource type="Script" uid="uid://b26ub6tbrujau" path="res://scenes/forecast/forecast.gd" id="1_7ri3x"]
+[ext_resource type="Texture2D" uid="uid://dw85xsl6f5267" path="res://art/day_icons/today.png" id="1_asoxn"]
+[ext_resource type="Texture2D" uid="uid://dp16kdbmfu0yb" path="res://art/day_icons/forecast.png" id="2_flo0q"]
+[ext_resource type="Theme" uid="uid://w2av5bmjgecq" path="res://theme/ceres_theme.tres" id="3_flo0q"]
+
+[node name="Forecast" type="Control" unique_id=290190370]
+custom_minimum_size = Vector2(345, 60)
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -30.0
+offset_right = 180.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7ri3x")
+
+[node name="DayLabel" type="Label" parent="." unique_id=1807034809]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -18.5
+offset_right = 80.0
+offset_bottom = 18.5
+grow_vertical = 2
+theme = ExtResource("3_flo0q")
+theme_override_font_sizes/font_size = 24
+text = "Day 10"
+vertical_alignment = 1
+
+[node name="ForecastBg1" type="TextureRect" parent="." unique_id=2100078147]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -240.0
+offset_top = -30.0
+offset_right = -180.0
+offset_bottom = 30.0
+grow_horizontal = 0
+grow_vertical = 2
+texture = ExtResource("1_asoxn")
+
+[node name="ForecastBg2" type="TextureRect" parent="." unique_id=47264741]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -30.0
+offset_right = -90.0
+offset_bottom = 30.0
+grow_horizontal = 0
+grow_vertical = 2
+texture = ExtResource("2_flo0q")
+
+[node name="ForecastBg3" type="TextureRect" parent="." unique_id=58976792]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -60.0
+offset_top = -30.0
+offset_bottom = 30.0
+grow_horizontal = 0
+grow_vertical = 2
+texture = ExtResource("2_flo0q")
