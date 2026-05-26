@@ -6,7 +6,7 @@ var schedule: Array[Dictionary] = []
 
 @onready var _day_label: Label = %DayLabel
 
-var _curr_day: int = 1
+var _curr_day: int = 0
 
 func incr_day() -> void:
 	_curr_day += 1
@@ -17,6 +17,9 @@ func get_day() -> int:
 	return _curr_day
 
 func get_event_today() -> Dictionary:
+	if _curr_day > schedule.size():
+		printerr("Schedule array does not have an event for day #", _curr_day)
+		return {}
 	return schedule[_curr_day - 1]
 
 func add_safe_day() -> void:
@@ -43,7 +46,6 @@ func add_final_day(price: int, attacks: Array[EnemyAttack.Attacks]) -> void:
 		"attacks": attacks 
 	})
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass
 

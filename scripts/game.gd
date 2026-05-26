@@ -12,6 +12,7 @@ enum GameStates {DAWN, DAY, DUSK, NIGHT}
 @onready var cabin: Cabin = %Cabin
 @onready var cabin_area: CabinArea = %CabinArea
 @onready var blessing_menu: BlessingMenu = %BlessingMenu
+@onready var forecast: Forecast = %Forecast
 @onready var wallet: Wallet = %Wallet
 @onready var daylight_cycle: DaylightCycle = %DaylightCycle
 @onready var attack_highlight_marker: Sprite2D = %AttackHighlightMarker
@@ -46,13 +47,13 @@ const HP_SEED_ITEM: Item = preload("uid://gad4q5m7vacj")
 const SHOVEL_ITEM: Item = preload("uid://us2gsrgycubo")
 const WATER_ITEM: Item = preload("uid://dot1l1nu30k12")
 
-const current_state = GameStates.DAWN
-var current_day: int = 0
-
 # Atlas coords
 const WET_TILE: Vector2i = Vector2i(0,0)
 const DRY_TILE: Vector2i = Vector2i(1,0)
 const DEBRIS_TILE: Vector2i = Vector2i(4,2)
+
+var current_day: int = 0
+
 
 func _ready():
 	# Signals
@@ -60,11 +61,21 @@ func _ready():
 	cabin.end_day.connect(_end_day)
 	shop.try_buy.connect(_click_purchase)
 	blessing_menu.accept.connect(_click_blessing)
-	
 	enemy_attack.squares_to_attack.connect(_attack_squares)
-	#Game State
-	set_state(GameStates.DAWN)
+	
 	attack_highlight_marker.visible = false
+	
+	# Generate Schedule
+	forecast.add_safe_day()
+	forecast.add_safe_day()
+	forecast.add_payment_day(40)
+	forecast.add_attack_day([])
+	forecast.add_payment_day(80)
+	forecast.add_attack_day([])
+	forecast.add_final_day(120, [])
+	
+	# Game State
+	set_state(GameStates.DAWN)
 
 
 #region Game State
@@ -84,6 +95,13 @@ func set_state(state: Game.GameStates) -> void:
 ## The game starts here. Give the player resources
 func _handle_dawn() -> void:
 	current_day += 1
+	forecast.incr_day()
+	if forecast.get_day() != current_day:
+		printerr("mismatch between `forecast.get_day()` = %d and `current_day` = %d" % 
+			[forecast.get_day(), current_day])
+	
+	print("Today's event: ", forecast.get_event_today())
+	
 	# Display good day overview if not the first day
 	if current_day > 1:
 		pass # Display good day overview
@@ -147,10 +165,11 @@ func _handle_night() -> void:
 	daylight_cycle.transition_to(DaylightCycle.Phase.NIGHT)
 	await daylight_cycle.transition_finished
 	print("NIGHT phase started")
-	set_state(GameStates.DAWN)
 	# Check if the player lost
 	if grid.plants.is_empty():
-		pass
+		print("Game over! No plants survived!")
+	else:
+		set_state(GameStates.DAWN)
 
 func _end_day() -> void:
 	cabin.visible = false

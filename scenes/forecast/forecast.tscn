@@ -33,7 +33,7 @@ offset_bottom = 18.5
 grow_vertical = 2
 theme = ExtResource("3_flo0q")
 theme_override_font_sizes/font_size = 24
-text = "Day 10"
+text = "Day 1"
 vertical_alignment = 1
 
 [node name="ForecastBg1" type="TextureRect" parent="." unique_id=2100078147]
