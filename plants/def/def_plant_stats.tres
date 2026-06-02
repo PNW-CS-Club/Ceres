@@ -5,4 +5,5 @@
 [resource]
 resource_local_to_scene = true
 script = ExtResource("1_cgg0w")
+mature_cover_provided = 30
 metadata/_custom_type_script = "uid://bcn1nww4e1u45"

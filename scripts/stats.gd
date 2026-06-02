@@ -11,10 +11,12 @@ signal level_changed(level: int)
 @export var base_dodge_chance: float = 0.00
 @export var base_price: float = 100.0
 @export var base_level: int = 1
+@export var mature_cover_provided: int = 0
 
 var current_max_health: int = 100
 var current_dodge_chance: float = 0.00
 var current_price: float = 100.0
+var current_cover_provided: int = 0
 var level: int = 1: set = _on_level_set
 var health: int = 0: set = _on_health_set
 
@@ -56,14 +58,17 @@ func recalculate_stats() -> void:
 			current_max_health = base_max_health
 			current_dodge_chance = base_dodge_chance
 			current_price = base_price
+			current_cover_provided = 0
 		2: 
 			current_max_health = int(base_max_health * 2.0)
 			current_dodge_chance = base_dodge_chance + 0.05
 			current_price = base_price * 1.25
+			current_cover_provided = 0
 		3: # Max level
 			current_max_health = int(base_max_health * 4.0)
 			current_dodge_chance = base_dodge_chance + 0.10
 			current_price = base_price * 1.5
+			current_cover_provided = min(mature_cover_provided, health)
 	
 	for stat_name in stat_addends:
 		var cur_property_name: String = str("current_" + stat_name)
@@ -75,6 +80,8 @@ func recalculate_stats() -> void:
 
 func _on_health_set(new_value: int) -> void:
 	health = clampi(new_value, 0, current_max_health)
+	if level == 3:
+		current_cover_provided = min(mature_cover_provided, health)
 	health_changed.emit(health, current_max_health)
 	if health <= 0:
 		health_depleted.emit()

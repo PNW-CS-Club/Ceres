@@ -124,6 +124,8 @@ func _handle_dawn() -> void:
 		var rng = RandomNumberGenerator.new()
 		wallet.change_balance(rng.randi_range(20,50))
 	
+	# TODO: activate "ability_at_dawn" plant abilities here
+	
 	blessing_menu.show()
 	await blessing_menu.done
 	blessing_menu.hide()
@@ -233,6 +235,11 @@ func _try_to_plant(coords: Vector2i, item: Item) -> bool:
 		grid.add_child(plant)
 		sfx_plant.play()
 		plant.stats.health_depleted.connect(_on_plant_died.bind(coords, plant))
+		
+		for adj in adjs: #TODO: get adjacent plants
+			adj.register_adj(plant)
+			plant.register_adj(adj)
+		
 		return true
 	else:
 		return false
