@@ -236,13 +236,39 @@ func _try_to_plant(coords: Vector2i, item: Item) -> bool:
 		sfx_plant.play()
 		plant.stats.health_depleted.connect(_on_plant_died.bind(coords, plant))
 		
-		for adj in adjs: #TODO: get adjacent plants
+		for adj in _get_adjacent_plants(coords):
 			adj.register_adj(plant)
 			plant.register_adj(adj)
 		
 		return true
 	else:
 		return false
+
+func _get_adjacent_plants(coords: Vector2i) -> Array[Plant]:
+	# NOTE: these are the 8 adjacent tiles, 
+	#       but we could choose to use only the 4 adjacent ones instead
+	const offsets: Array[Vector2i] = [
+		Vector2i(-1, -1),
+		Vector2i(-1, 0),
+		Vector2i(-1, +1),
+		Vector2i(0, -1),
+		Vector2i(0, +1),
+		Vector2i(+1, -1),
+		Vector2i(+1, 0),
+		Vector2i(+1, +1),
+	]
+	var result: Array[Plant] = []
+	
+	for offset in offsets:
+		var new_coords = coords + offset
+		if not grid.is_in_bounds(new_coords): continue
+		
+		var plot_contents = grid.at(new_coords)
+		if plot_contents is Plant: 
+			result.append(plot_contents)
+	
+	print(result)
+	return result
 
 ## Use the shovel to remove debris
 func _dig_up(coords: Vector2i) -> void:
