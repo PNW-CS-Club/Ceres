@@ -1,19 +1,13 @@
 [gd_scene format=3 uid="uid://cj5dv7qg2wly8"]
 
 [ext_resource type="Script" uid="uid://ckcxqvx2t4s8s" path="res://plants/def/def_plant.gd" id="1_3twyc"]
-[ext_resource type="Script" uid="uid://bcn1nww4e1u45" path="res://scripts/stats.gd" id="2_2m0b1"]
+[ext_resource type="Resource" uid="uid://cl7u8rro1pqoy" path="res://plants/def/def_plant_stats.tres" id="2_mcwha"]
 [ext_resource type="Texture2D" uid="uid://cwl8n4ce8qmmv" path="res://art/plants/Def/Def_sheet.png" id="3_t5pj4"]
 [ext_resource type="PackedScene" uid="uid://ckin2nvrnf8he" path="res://scenes/health_bar.tscn" id="4_mcwha"]
 
-[sub_resource type="Resource" id="Resource_x8mqw"]
-resource_local_to_scene = true
-script = ExtResource("2_2m0b1")
-base_max_health = 200
-metadata/_custom_type_script = "uid://bcn1nww4e1u45"
-
 [node name="defense_plant" type="Node2D" unique_id=1424423727]
 script = ExtResource("1_3twyc")
-stats = SubResource("Resource_x8mqw")
+stats = ExtResource("2_mcwha")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1649174475]
 z_index = 10

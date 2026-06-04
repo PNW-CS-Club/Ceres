@@ -1,23 +1,17 @@
 [gd_scene format=3 uid="uid://dciwxjx24qc3d"]
 
 [ext_resource type="Script" uid="uid://xdm43h0mde0a" path="res://plants/buff/buff_plant.gd" id="1_uqpdx"]
+[ext_resource type="Resource" uid="uid://boci5fxfa3sd4" path="res://plants/buff/buff_plant_stats.tres" id="2_38y82"]
 [ext_resource type="Texture2D" uid="uid://dkwhae3jocrnq" path="res://art/plants/Buff/Buff_sheet.png" id="2_uqpdx"]
-[ext_resource type="Script" uid="uid://bcn1nww4e1u45" path="res://scripts/stats.gd" id="2_x3bj7"]
 [ext_resource type="PackedScene" uid="uid://ckin2nvrnf8he" path="res://scenes/health_bar.tscn" id="3_38y82"]
-
-[sub_resource type="Resource" id="Resource_38y82"]
-resource_local_to_scene = true
-script = ExtResource("2_x3bj7")
-metadata/_custom_type_script = "uid://bcn1nww4e1u45"
 
 [node name="buff_plant" type="Node2D" unique_id=1424423727]
 script = ExtResource("1_uqpdx")
-stats = SubResource("Resource_38y82")
+stats = ExtResource("2_38y82")
 
 [node name="HealthBar" parent="." unique_id=1565933631 instance=ExtResource("3_38y82")]
 unique_name_in_owner = true
 z_index = 20
-position = Vector2(0, 25)
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1649174475]
 z_index = 10

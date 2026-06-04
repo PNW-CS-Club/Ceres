@@ -232,7 +232,7 @@ func _try_to_plant(coords: Vector2i, item: Item) -> bool:
 		inventory.remove_from_hand(1)
 		grid.put(coords, plant)
 		grid.plants.append(coords)
-		grid.add_child(plant)
+		grid.add_child(plant, true)
 		sfx_plant.play()
 		plant.stats.health_depleted.connect(_on_plant_died.bind(coords, plant))
 		
@@ -314,8 +314,9 @@ func _add_debris() -> void:
 		var cell = grid.at(cell_coords)
 		if cell == null: 
 			var debris: Debris = Debris.new()
+			debris.name = "Debris"
 			grid.put(cell_coords, debris)
-			grid.add_child(debris)
+			grid.add_child(debris, true)
 			farm.set_cell(cell_coords, 9, DEBRIS_TILE)
 		debris_amount -= 1 
 		#NOTE Even if the function failed to add certain debris we still reduce the amount.
@@ -340,7 +341,7 @@ func _reset_wet_to_dry() -> void:
 	for i in wet_tiles:
 		farm.set_cell(i, 9, DRY_TILE)
 
-## Deal damage to the marked squares
+## Deal attack damage to the marked squares
 func _attack_squares(marked_squares: Array[Vector2i]) -> void:
 	print("Now attacking the targeted squares")
 	for square in marked_squares:
@@ -350,7 +351,7 @@ func _attack_squares(marked_squares: Array[Vector2i]) -> void:
 		await get_tree().create_timer(0.2).timeout
 		if grid.at(square) is Plant:
 			var plant: Plant = grid.at(square)
-			plant.take_damage(100)
+			plant.receive_attack(100)
 			sfx_attackhit.play()
 		else:
 			sfx_attackmiss.play()
@@ -362,7 +363,7 @@ func _on_plant_died(coords: Vector2i, plant: Plant) -> void:
 	grid.plants.erase(coords)
 	var debris: Debris = Debris.new()
 	grid.put(coords, debris)
-	grid.add_child(debris)
+	grid.add_child(debris, true)
 	farm.set_cell(coords, 9, DEBRIS_TILE)
 	grid.remove_child(plant)
 	plant.queue_free()
