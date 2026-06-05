@@ -4,6 +4,7 @@ signal attacks_complete
 
 enum GameStates {DAWN, DAY, DUSK, NIGHT}
 
+@onready var debug_menu: DebugMenu = %DebugMenu
 @onready var farm: FarmTileLayer = %TileMapLayerFarm
 @onready var inventory: Inventory = %Hotbar
 @onready var grid: Grid = %Grid
@@ -53,6 +54,7 @@ const DRY_TILE: Vector2i = Vector2i(1,0)
 const DEBRIS_TILE: Vector2i = Vector2i(4,2)
 
 var current_day: int = 0
+var debug_pressed_last_frame: bool = false
 
 
 func _ready():
@@ -65,6 +67,9 @@ func _ready():
 	
 	attack_highlight_marker.visible = false
 	
+	debug_menu.hide()
+	debug_menu.cheat_in_items.connect(_cheat_in_items)
+	
 	# Generate Schedule
 	forecast.add_safe_day()
 	forecast.add_safe_day()
@@ -76,6 +81,31 @@ func _ready():
 	
 	# Game State
 	set_state(GameStates.DAWN)
+
+func _process(_delta: float):
+	if not debug_pressed_last_frame and Input.is_key_pressed(KEY_QUOTELEFT):
+		debug_menu.visible = not debug_menu.visible
+	
+	debug_pressed_last_frame = Input.is_key_pressed(KEY_QUOTELEFT)
+
+
+#region Debug Cheats
+
+func _cheat_in_items(type: Item.Type, amount: int):
+	const item_list: Array[Item] = [ 
+		BUFF_BUFF_SEED_ITEM, BUFF_DEF_SEED_ITEM, BUFF_HP_SEED_ITEM, 
+		BUFF_SEED_ITEM, DEF_DEF_SEED_ITEM, DEF_HP_SEED_ITEM, 
+		DEF_SEED_ITEM, HP_HP_SEED_ITEM, HP_SEED_ITEM, 
+		SHOVEL_ITEM, WATER_ITEM
+	]
+	for item in item_list:
+		if item.type == type:
+			inventory.add_item(item, amount)
+			return
+	printerr("Could not find item of type ", Item.Type.find_key(type))
+
+#endregion
+
 
 
 #region Game State
@@ -267,7 +297,7 @@ func _get_adjacent_plants(coords: Vector2i) -> Array[Plant]:
 		if plot_contents is Plant: 
 			result.append(plot_contents)
 	
-	print(result)
+	result.shuffle()
 	return result
 
 ## Use the shovel to remove debris

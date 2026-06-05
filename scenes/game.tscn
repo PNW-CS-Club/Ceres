@@ -28,6 +28,7 @@
 [ext_resource type="Script" uid="uid://dvw2r6uuyoyuo" path="res://scripts/cabin_area.gd" id="16_rysoc"]
 [ext_resource type="StyleBox" uid="uid://d0301p28m8dpl" path="res://theme/stylebox_panel_top.tres" id="23_suyxu"]
 [ext_resource type="PackedScene" uid="uid://cyyvn2j7hdcra" path="res://scenes/forecast/forecast.tscn" id="24_sww3w"]
+[ext_resource type="PackedScene" uid="uid://cm3httxog0i3e" path="res://scenes/debug_menu/debug_menu.tscn" id="26_sgl2t"]
 [ext_resource type="PackedScene" uid="uid://d32m1j0umy5jm" path="res://scenes/blessing/blessing_menu.tscn" id="29_suyxu"]
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_ir15t"]
@@ -196,6 +197,11 @@ size_flags_stretch_ratio = 0.0
 mouse_default_cursor_shape = 2
 theme = ExtResource("13_rysoc")
 text = " Shop "
+
+[node name="DebugMenu" parent="CanvasLayerStatic" unique_id=598085957 instance=ExtResource("26_sgl2t")]
+unique_name_in_owner = true
+offset_right = 169.0
+offset_bottom = 99.0
 
 [node name="CanvasLayerPopups" type="CanvasLayer" parent="." unique_id=1318873441]
 layer = 2
