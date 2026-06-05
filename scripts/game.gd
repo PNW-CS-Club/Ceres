@@ -69,6 +69,7 @@ func _ready():
 	
 	debug_menu.hide()
 	debug_menu.cheat_in_items.connect(_cheat_in_items)
+	debug_menu.cheat_in_coins.connect(_cheat_in_coins)
 	
 	# Generate Schedule
 	forecast.add_safe_day()
@@ -83,6 +84,7 @@ func _ready():
 	set_state(GameStates.DAWN)
 
 func _process(_delta: float):
+	# when the backtick key has a down press, toggle the visibility of the debug menu
 	if not debug_pressed_last_frame and Input.is_key_pressed(KEY_QUOTELEFT):
 		debug_menu.visible = not debug_menu.visible
 	
@@ -103,6 +105,9 @@ func _cheat_in_items(type: Item.Type, amount: int):
 			inventory.add_item(item, amount)
 			return
 	printerr("Could not find item of type ", Item.Type.find_key(type))
+
+func _cheat_in_coins(amount: int):
+	wallet.change_balance(amount)
 
 #endregion
 

@@ -200,8 +200,8 @@ text = " Shop "
 
 [node name="DebugMenu" parent="CanvasLayerStatic" unique_id=598085957 instance=ExtResource("26_sgl2t")]
 unique_name_in_owner = true
-offset_right = 169.0
-offset_bottom = 99.0
+offset_right = 206.0
+offset_bottom = 176.0
 
 [node name="CanvasLayerPopups" type="CanvasLayer" parent="." unique_id=1318873441]
 layer = 2

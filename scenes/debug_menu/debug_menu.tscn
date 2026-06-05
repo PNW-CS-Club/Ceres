@@ -2,6 +2,7 @@
 
 [ext_resource type="Theme" uid="uid://c6x7g7mlr4va5" path="res://theme/debug_theme.tres" id="1_y6jnw"]
 [ext_resource type="Script" uid="uid://w634dtaxx0no" path="res://scenes/debug_menu/debug_menu.gd" id="2_fv8oj"]
+[ext_resource type="Texture2D" uid="uid://di04akv5g5qqk" path="res://art/phytion-icon.png" id="3_3x2eh"]
 
 [node name="DebugMenu" type="PanelContainer" unique_id=598085957]
 offset_right = 40.0
@@ -25,10 +26,22 @@ layout_mode = 2
 theme = ExtResource("1_y6jnw")
 text = "Debug Menu"
 
-[node name="HFlowContainer" type="HFlowContainer" parent="MarginContainer/VBoxContainer" unique_id=1161478154]
+[node name="ItemGiver" type="HFlowContainer" parent="MarginContainer/VBoxContainer" unique_id=1161478154]
 layout_mode = 2
 
-[node name="ItemPicker" type="OptionButton" parent="MarginContainer/VBoxContainer/HFlowContainer" unique_id=22750307]
+[node name="GiveItemsButton" type="Button" parent="MarginContainer/VBoxContainer/ItemGiver" unique_id=1125272932]
+layout_mode = 2
+theme = ExtResource("1_y6jnw")
+text = "Give"
+
+[node name="ItemAmountPicker" type="SpinBox" parent="MarginContainer/VBoxContainer/ItemGiver" unique_id=24122258]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = 1.0
+value = 1.0
+select_all_on_focus = true
+
+[node name="ItemTypePicker" type="OptionButton" parent="MarginContainer/VBoxContainer/ItemGiver" unique_id=22750307]
 unique_name_in_owner = true
 layout_mode = 2
 item_count = 3
@@ -39,16 +52,32 @@ popup/item_1/id = 1
 popup/item_2/text = "Buff Buff Seeds"
 popup/item_2/id = 2
 
-[node name="AmountPicker" type="SpinBox" parent="MarginContainer/VBoxContainer/HFlowContainer" unique_id=24122258]
-unique_name_in_owner = true
+[node name="CoinGiver" type="HFlowContainer" parent="MarginContainer/VBoxContainer" unique_id=502023233]
 layout_mode = 2
-min_value = 1.0
-value = 1.0
-select_all_on_focus = true
 
-[node name="AddButton" type="Button" parent="MarginContainer/VBoxContainer/HFlowContainer" unique_id=1125272932]
+[node name="GiveCoinsButton" type="Button" parent="MarginContainer/VBoxContainer/CoinGiver" unique_id=596588247]
 layout_mode = 2
 theme = ExtResource("1_y6jnw")
-text = "Add"
+text = "Give"
 
-[connection signal="pressed" from="MarginContainer/VBoxContainer/HFlowContainer/AddButton" to="." method="on_add_button"]
+[node name="CoinRect" type="TextureRect" parent="MarginContainer/VBoxContainer/CoinGiver" unique_id=168779577]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("3_3x2eh")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CoinAmountPicker" type="SpinBox" parent="MarginContainer/VBoxContainer/CoinGiver" unique_id=19499128]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = -500.0
+max_value = 500.0
+value = 100.0
+allow_greater = true
+allow_lesser = true
+custom_arrow_step = 10.0
+custom_arrow_round = true
+select_all_on_focus = true
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ItemGiver/GiveItemsButton" to="." method="on_give_items_button"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/CoinGiver/GiveCoinsButton" to="." method="on_give_coins_button"]
