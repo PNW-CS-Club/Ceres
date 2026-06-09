@@ -26,13 +26,18 @@
 [ext_resource type="Gradient" uid="uid://c5e4hlmqk1pja" path="res://resources/gradient_daylight.tres" id="15_ir15t"]
 [ext_resource type="AudioStream" uid="uid://yrylvybdsv0i" path="res://Sound/CeresTheme.wav" id="16_1kice"]
 [ext_resource type="Script" uid="uid://dvw2r6uuyoyuo" path="res://scripts/cabin_area.gd" id="16_rysoc"]
-[ext_resource type="StyleBox" uid="uid://d0301p28m8dpl" path="res://theme/stylebox_panel_top.tres" id="23_suyxu"]
+[ext_resource type="StyleBox" uid="uid://dpmrq1infmgkd" path="res://theme/stylebox_panel_medium.tres" id="22_sgl2t"]
 [ext_resource type="PackedScene" uid="uid://cyyvn2j7hdcra" path="res://scenes/forecast/forecast.tscn" id="24_sww3w"]
 [ext_resource type="PackedScene" uid="uid://cm3httxog0i3e" path="res://scenes/debug_menu/debug_menu.tscn" id="26_sgl2t"]
 [ext_resource type="PackedScene" uid="uid://d32m1j0umy5jm" path="res://scenes/blessing/blessing_menu.tscn" id="29_suyxu"]
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_ir15t"]
 gradient = ExtResource("15_ir15t")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sgl2t"]
+bg_color = Color(0.43137255, 0.31764707, 0.5058824, 1)
+border_width_left = 4
+border_color = Color(0.25490198, 0.19215687, 0.39215687, 1)
 
 [node name="Game" type="Node2D" unique_id=1390331388]
 script = ExtResource("1_e2o6t")
@@ -147,50 +152,80 @@ position = Vector2(516, 249)
 [node name="CanvasLayerStatic" type="CanvasLayer" parent="." unique_id=40402678]
 layer = 3
 
-[node name="Hotbar" parent="CanvasLayerStatic" unique_id=1601094469 instance=ExtResource("5_kvpfn")]
-unique_name_in_owner = true
-offset_left = -383.0
-offset_top = -81.0
-offset_right = 383.0
-offset_bottom = -10.0
-size_flags_vertical = 8
-metadata/_edit_lock_ = true
-
 [node name="BackgroundMusicPlayer" parent="CanvasLayerStatic" unique_id=1446051342 instance=ExtResource("15_264po")]
 process_priority = 1
 stream = ExtResource("16_1kice")
 
-[node name="TopPanel" type="PanelContainer" parent="CanvasLayerStatic" unique_id=1690201751]
-anchors_preset = 10
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayerStatic" unique_id=493451824]
+anchors_preset = 15
 anchor_right = 1.0
-offset_bottom = 59.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 0
+
+[node name="Container" type="Control" parent="CanvasLayerStatic/HBoxContainer" unique_id=1881630948]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="TopPanel" type="PanelContainer" parent="CanvasLayerStatic/HBoxContainer/Container" unique_id=1690201751]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -191.5
+offset_top = 8.0
+offset_right = 191.5
+offset_bottom = 92.0
 grow_horizontal = 2
 theme = ExtResource("13_rysoc")
 theme_type_variation = &"PanelContainerDark"
-theme_override_styles/panel = ExtResource("23_suyxu")
+theme_override_styles/panel = ExtResource("22_sgl2t")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayerStatic/TopPanel" unique_id=668025301]
-layout_mode = 2
-theme_override_constants/separation = 24
-alignment = 2
-
-[node name="CenterContainer" type="CenterContainer" parent="CanvasLayerStatic/TopPanel/HBoxContainer" unique_id=952895096]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayerStatic/HBoxContainer/Container/TopPanel" unique_id=1433336981]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_right = 8
 
-[node name="Forecast" parent="CanvasLayerStatic/TopPanel/HBoxContainer/CenterContainer" unique_id=290190370 instance=ExtResource("24_sww3w")]
+[node name="Forecast" parent="CanvasLayerStatic/HBoxContainer/Container/TopPanel/MarginContainer" unique_id=290190370 instance=ExtResource("24_sww3w")]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 4
 
-[node name="Wallet" parent="CanvasLayerStatic/TopPanel/HBoxContainer" unique_id=1098571293 instance=ExtResource("5_vtaks")]
+[node name="Hotbar" parent="CanvasLayerStatic/HBoxContainer/Container" unique_id=1601094469 instance=ExtResource("5_kvpfn")]
 unique_name_in_owner = true
+layout_mode = 1
+offset_left = -383.0
+offset_top = -71.0
+offset_right = 383.0
+offset_bottom = 0.0
+size_flags_vertical = 8
+
+[node name="Panel" type="Panel" parent="CanvasLayerStatic/HBoxContainer" unique_id=487576859]
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_sgl2t")
+
+[node name="Wallet" parent="CanvasLayerStatic/HBoxContainer/Panel" unique_id=1098571293 instance=ExtResource("5_vtaks")]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 23.0
+offset_top = 5.0
+offset_right = 97.0
+offset_bottom = 65.0
 size_flags_stretch_ratio = 0.0
 
-[node name="ShopButton" type="Button" parent="CanvasLayerStatic/TopPanel/HBoxContainer" unique_id=1764044730]
+[node name="ShopButton" type="Button" parent="CanvasLayerStatic/HBoxContainer/Panel" unique_id=1764044730]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(80, 40)
-layout_mode = 2
+layout_mode = 0
+offset_left = 202.0
+offset_top = 17.0
+offset_right = 282.0
+offset_bottom = 64.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 size_flags_stretch_ratio = 0.0
@@ -200,6 +235,7 @@ text = " Shop "
 
 [node name="DebugMenu" parent="CanvasLayerStatic" unique_id=598085957 instance=ExtResource("26_sgl2t")]
 unique_name_in_owner = true
+visible = false
 offset_right = 206.0
 offset_bottom = 176.0
 
